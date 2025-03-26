@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Election24 Routes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    .btn {
+      background-color: #4a90e2;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .output {
+      white-space: pre-wrap;
+      background: #f4f4f4;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo2.png" alt="Election24 Logo" width="50" />
+    <h1>Election24 Routes</h1>
+  </header>
+
+  <table>
+    <thead>
+      <tr><th>Route</th><th>Description</th><th>URL</th><th></th></tr>
+    </thead>
+    <tbody id="routeTable">
+      <tr>
+        <td>/summary</td>
+        <td>GET summary</td>
+        <td><a href="http://localhost:3000/summary" target="_blank">http://localhost:3000/summary</a></td>
+        <td><button class="btn" onclick="fetchData('/summary')">GET</button></td>
+      </tr>
+      <tr>
+        <td>/parties</td>
+        <td>GET parties</td>
+        <td><a href="http://localhost:3000/parties" target="_blank">http://localhost:3000/parties</a></td>
+        <td><button class="btn" onclick="fetchData('/parties')">GET</button></td>
+      </tr>
+      <tr>
+        <td>/candidates</td>
+        <td>GET candidates</td>
+        <td><a href="http://localhost:3000/candidates" target="_blank">http://localhost:3000/candidates</a></td>
+        <td><button class="btn" onclick="fetchData('/candidates')">GET</button></td>
+      </tr>
+      <tr>
+        <td>/candidates/party/FF</td>
+        <td>GET candidates by party</td>
+        <td><a href="http://localhost:3000/candidates/party/FF" target="_blank">http://localhost:3000/candidates/party/FF</a></td>
+        <td><button class="btn" onclick="fetchData('/candidates/party/FF')">GET</button></td>
+      </tr>
+      <tr>
+        <td>/candidates/constituency/C09</td>
+        <td>GET candidates by constituency</td>
+        <td><a href="http://localhost:3000/candidates/constituency/C09" target="_blank">http://localhost:3000/candidates/constituency/C09</a></td>
+        <td><button class="btn" onclick="fetchData('/candidates/constituency/C09')">GET</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="output" id="output">JSON data will appear here...</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    function fetchData(route) {
+      fetch(`http://localhost:3000${route}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(err => {
+          document.getElementById('output').textContent = `Error: ${err}`;
+        });
+    }
+  </script>
+</body>
+</html>

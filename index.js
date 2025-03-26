@@ -16,6 +16,18 @@ app.get("/summary", function(req,res){
     db.getSummary(req,res);
 });
 
+app.get("/parties", function(req,res){   
+  db.getParties(req,res);
+});
+
+app.get("/candidates", function(req,res){   
+  db.getCandidates(req,res);
+});
+
+
+
+
+
 var myServer = app.listen(3000, function() {
   console.log("IRLElection2024 Server listening on port 3000...");
 });
