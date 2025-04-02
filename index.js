@@ -24,6 +24,18 @@ app.get("/candidates", function(req,res){
   db.getCandidates(req,res);
 });
 
+app.get("/constituencies", (req, res) => {
+  db.getConstituencies(req, res);
+});
+
+
+app.get("/candidates/party/:party", function(req, res) {
+  db.getCandidatesByParty(req, res);
+});
+
+app.get("/candidates/constituency/:constituency", function(req, res) {
+  db.getCandidatesByConstituency(req, res);
+});
 
 
 

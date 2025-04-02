@@ -52,3 +52,61 @@ exports.getCandidates = function(req, res) {
     res.send(JSON.stringify(rows));
   });
 };
+
+exports.getConstituencies = function(req, res) {
+  const sql = "SELECT * FROM constituencies";
+  connection.query(sql, function(err, rows) {
+    if (err) throw err;
+    res.json(rows);
+  });
+};
+
+
+exports.getCandidatesByParty = function(req, res) {
+  const party = req.params.party;
+
+  const sql = `
+    SELECT 
+      CANDIDATE_ID,
+      CONSTITUENCY,
+      FIRSTNAME,
+      SURNAME,
+      GENDER,
+      PARTY_ID,
+      PARTY_MNEMONIC,
+      CURRENT_STATUS
+    FROM candidates
+    WHERE PARTY_MNEMONIC = ?
+  `;
+
+  connection.query(sql, [party], function(err, rows) {
+    if (err) throw err;
+    res.json(rows);
+  });
+};
+
+exports.getCandidatesByConstituency = function(req, res) {
+  const constituency = req.params.constituency;
+
+  const sql = `
+    SELECT 
+      CANDIDATE_ID,
+      CONSTITUENCY,
+      FIRSTNAME,
+      SURNAME,
+      GENDER,
+      PARTY_ID,
+      PARTY_MNEMONIC,
+      CURRENT_STATUS
+    FROM candidates
+    WHERE CONSTITUENCY = ?
+  `;
+
+  connection.query(sql, [constituency], function(err, rows) {
+    if (err) throw err;
+    res.json(rows);
+  });
+};
+
+
+
