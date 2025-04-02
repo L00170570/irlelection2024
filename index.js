@@ -28,6 +28,11 @@ app.get("/constituencies", (req, res) => {
   db.getConstituencies(req, res);
 });
 
+app.get("/counts", function(req, res) {
+  db.getCounts(req, res);
+});
+
+
 
 app.get("/candidates/party/:party", function(req, res) {
   db.getCandidatesByParty(req, res);

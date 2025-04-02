@@ -61,6 +61,15 @@ exports.getConstituencies = function(req, res) {
   });
 };
 
+exports.getCounts = function(req, res) {
+  const sql = "SELECT * FROM counts";
+  connection.query(sql, function(err, rows) {
+    if (err) throw err;
+    res.json(rows);
+  });
+};
+
+
 
 exports.getCandidatesByParty = function(req, res) {
   const party = req.params.party;
